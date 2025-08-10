@@ -7,7 +7,7 @@ Matrix* getMatrix (char name) {
 
 	mat->name = name;
 
-	printf("Digite as #linhas e #colunas para a matriz %c: \n", mat->name);
+	printf("Digite as #linhas e #colunas para a matriz %c: ", mat->name);
 
 	scanf("%d", &mat->lines);
 	scanf("%d", &mat->cols);
@@ -15,7 +15,7 @@ Matrix* getMatrix (char name) {
 	printf("Digite os elementos da matriz %c, uma matriz %d x %d \n", mat->name, mat->lines, mat->cols);
 
 	for(int i = 0; i < mat->lines; i++) {
-		printf("%d entradas para a linha %d\n", mat->cols, i+1);
+		printf("%d entradas para a linha %d: ", mat->cols, i+1);
 
 		for(int j = 0; j < mat->cols; j++) {
 			scanf("%d", &mat->data[i][j]);
@@ -31,20 +31,19 @@ void sumMatrix (Matrix* matA, Matrix* matB) {
 		return;
 	}
 
-	Matrix* matC = malloc(sizeof(Matrix));
-	matC->lines = matA->lines;
-	matC->cols = matA->cols;
-    matC->name = 'C';
+	Matrix* matR = malloc(sizeof(Matrix));
+	matR->lines = matA->lines;
+	matR->cols = matA->cols;
+    matR->name = 'R';
 
 	for (int i = 0; i < matA->lines; i++) {
 		for (int j = 0; j < matA->cols; j++) {
-			matC->data[i][j] = matA->data[i][j] + matB->data[i][j];
+			matR->data[i][j] = matA->data[i][j] + matB->data[i][j];
 		}
 	}
 
-	printMatrix(matC);
-
-	free(matC);
+	printMatrix(matR);
+	free(matR);
 }
 
 void subMatrix (Matrix* matA, Matrix* matB) {
@@ -53,20 +52,19 @@ void subMatrix (Matrix* matA, Matrix* matB) {
 		return;
 	}
 
-	Matrix* matC = malloc(sizeof(Matrix));
-	matC->lines = matA->lines;
-	matC->cols = matA->cols;
-    matC->name = 'C';
+	Matrix* matR = malloc(sizeof(Matrix));
+	matR->lines = matA->lines;
+	matR->cols = matA->cols;
+    matR->name = 'R';
 
 	for (int i = 0; i < matA->lines; i++) {
 		for (int j = 0; j < matA->cols; j++) {
-			matC->data[i][j] = matA->data[i][j] - matB->data[i][j];
+			matR->data[i][j] = matA->data[i][j] - matB->data[i][j];
 		}
 	}
 
-	printMatrix(matC);
-
-	free(matC);
+	printMatrix(matR);
+	free(matR);
 }
 
 void multMatrix (Matrix* matA, Matrix* matB) {
@@ -75,28 +73,91 @@ void multMatrix (Matrix* matA, Matrix* matB) {
 		return;
 	}
 
-	Matrix* matC = malloc(sizeof(Matrix));
-	matC->lines = matA->lines;
-	matC->cols = matB->cols;
-    matC->name = 'C';
+	Matrix* matR = malloc(sizeof(Matrix));
+	matR->lines = matA->lines;
+	matR->cols = matB->cols;
+    matR->name = 'R';
 
-	for (int i = 0; i < matC->lines; i++) {
-        for (int j = 0; j < matC->cols; j++) {
-            matC->data[i][j] = 0;
+	for (int i = 0; i < matR->lines; i++) {
+        for (int j = 0; j < matR->cols; j++) {
+            matR->data[i][j] = 0;
             
             for (int k = 0; k < matA->cols; k++) {
-                matC->data[i][j] += matA->data[i][k] * matB->data[k][j];
+                matR->data[i][j] += matA->data[i][k] * matB->data[k][j];
             }
         }
     }
 
-	printMatrix(matC);
+	printMatrix(matR);
+	free(matR);
+}
+
+void multEsc (Matrix* mat){
+    printf("Digite o escalar: ");
+    int esc;
+    scanf("%d", &esc);
+    
+    Matrix* matR = malloc(sizeof(Matrix));
+	matR->lines = mat->lines;
+	matR->cols = mat->cols;
+    matR->name = 'R';
+    
+    for (int i = 0; i < matR->lines; i++){
+        for (int j = 0; j < matR->cols; j++){
+            matR->data[i][j] = mat->data[i][j] * esc;
+        }
+    }
+    
+    printMatrix(matR);
+    free(matR);
+}
+
+void quadMatrix (Matrix* mat){
+    if(mat->lines == mat->cols){
+        printf("A matriz eh quadrada");
+    } else {
+        printf("A matriz nao eh quadrada");
+    }
+}
+
+void transMatrix (Matrix* mat){
+    Matrix* matR = malloc(sizeof(Matrix));
+	matR->lines = mat->cols;
+	matR->cols = mat->lines;
+    matR->name = 'R';
+    
+    for (int i = 0; i < matR->lines; i++){
+        for (int j = 0; j < matR->cols; j++){
+            matR->data[i][j] = mat->data[j][i];
+        }
+    }
+    
+    printMatrix(matR);
+    free(matR);
+}
+
+void simMatrix (Matrix* mat){
+    if (mat->cols != mat->lines) {
+		printf("Nao eh simetrica pois nao eh quadrada");
+		return;
+	}
 	
-	free(matC);
+    for (int i = 0; i < mat->lines; i++){
+        for (int j = 0; j < mat->cols; j++){
+            if(mat->data[i][j] != mat->data[j][i]){
+                printf("A matriz nao eh simetrica");
+                return;
+            }
+        }
+    }
+    
+    printf("A matriz eh simetrica");
+    
+    free(mat);
 }
 
 void printMatrix (Matrix* mat) {
-	printf("Matriz gerada %c: \n", mat->name);
+	printf("Matriz %c gerada: \n", mat->name);
 
 	for(int i = 0; i < mat->lines; i++) {
 		for(int j = 0; j < mat->cols; j++) {

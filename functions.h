@@ -14,10 +14,10 @@ Matrix* getMatrix (char name);
 void sumMatrix (Matrix* matA, Matrix* matB);
 void subMatrix (Matrix* matA, Matrix* matB);
 void multMatrix (Matrix* matA, Matrix* matB);
-void multEsc (int mat[MAX][MAX], int n);
-void quadMatrix (int mat[MAX][MAX]);
-void transMatrix (int mat[MAX][MAX]);
-void simMatrix (int mat[MAX][MAX]);
+void multEsc (Matrix* mat);
+void quadMatrix (Matrix* mat);
+void transMatrix (Matrix* mat);
+void simMatrix (Matrix* mat);
 void printMatrix (Matrix* mat);
 
 #endif

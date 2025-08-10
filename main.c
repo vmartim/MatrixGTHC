@@ -13,7 +13,7 @@ int main(){
     printf("7. para verificar se a matriz eh simetrica\n");
     printf("8. para imprimir\n");
 
-    printf("Digite sua escolha\n");
+    printf("Digite sua escolha: ");
     int n;  
     scanf("%d", &n);
 
@@ -38,11 +38,23 @@ int main(){
         
     } else {
         switch(n){
+            case 4:
+                multEsc(A);
+                break;
+            case 5:
+                quadMatrix(A);
+                break;
+            case 6:
+                transMatrix(A);
+                break;
+            case 7:
+                simMatrix(A);
+                break;
             case 8:
                 printMatrix(A);
                 break;
         }
-
+        
     }
     
     free(A);
