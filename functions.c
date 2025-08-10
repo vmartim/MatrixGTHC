@@ -152,8 +152,6 @@ void simMatrix (Matrix* mat){
     }
     
     printf("A matriz eh simetrica");
-    
-    free(mat);
 }
 
 void printMatrix (Matrix* mat) {
