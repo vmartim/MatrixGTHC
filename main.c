@@ -1,13 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "functions.h"
 
-#define MAX 100
-
-int A[MAX][MAX], linesA, colsA;
-int B[MAX][MAX], linesB, colsB;
-
-int main()
-{
+int main(){
     printf("Calculadora\n");
     printf("1. para somar\n");
     printf("2. para subtrair\n");
@@ -18,16 +13,39 @@ int main()
     printf("7. para verificar se a matriz eh simetrica\n");
     printf("8. para imprimir\n");
 
-    int n;  
     printf("Digite sua escolha\n");
+    int n;  
     scanf("%d", &n);
 
-    getMatrix(A, 'A', &linesA, &colsA);
+    Matrix* A = getMatrix('A');
     
-    switch(n){
-        case 8:
-            printMatrix(A, linesA, colsA);
-    }
+    if(n <= 3){
+        Matrix* B = getMatrix('B');
+        
+        switch(n){
+            case 1:
+                sumMatrix(A, B);
+                break;
+            case 2:
+                subMatrix(A, B);
+                break;
+            case 3:
+                multMatrix(A, B);
+                break;
+        }
+        
+        free(B);
+        
+    } else {
+        switch(n){
+            case 8:
+                printMatrix(A);
+                break;
+        }
 
+    }
+    
+    free(A);
+    
     return 0;
 }
